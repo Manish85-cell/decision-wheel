@@ -97,6 +97,16 @@ export default function Home() {
 
   requestAnimationFrame(animate);
 };
+const clearWheel = () => {
+  setTasks([]);
+  setResult('');
+  setRotation(0);
+  const canvas = canvasRef.current;
+  if (canvas) {
+    const ctx = canvas.getContext('2d');
+    if (ctx) ctx.clearRect(0, 0, canvas.width, canvas.height);
+  }
+};
 
 
 return (
@@ -183,7 +193,7 @@ return (
       ></canvas>
     </div>
 
-    <button
+    {/* <button
       onClick={spin}
       style={{
         marginTop: '2rem',
@@ -197,7 +207,36 @@ return (
       }}
     >
       Spin 🎯
-    </button>
+    </button> */}
+    <div style={{ display: 'flex', gap: '1rem', marginTop: '2rem', flexWrap: 'wrap', justifyContent: 'center' }}>
+        <button
+          onClick={spin}
+          style={{
+            padding: '1rem 2rem',
+            fontSize: '1.2rem',
+            borderRadius: '12px',
+            backgroundColor: 'green',
+            color: 'white',
+            border: 'none',
+          }}
+        >
+          Spin 🎯
+        </button>
+
+        <button
+          onClick={clearWheel}
+          style={{
+            padding: '1rem 2rem',
+            fontSize: '1.2rem',
+            borderRadius: '12px',
+            backgroundColor: '#f44336',
+            color: 'white',
+            border: 'none',
+          }}
+        >
+          Clear 🗑️
+        </button>
+    </div>
 
     {result && (
       <div
