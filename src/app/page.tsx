@@ -65,6 +65,9 @@ export default function Home() {
 
   const spin = () => {
   if (tasks.length === 0) return;
+  const spinSound = new Audio('/spin.mp3');
+  spinSound.volume = 0.3;
+  spinSound.play();
 
   const anglePerTask = 360 / tasks.length;
   const extraSpins = 5 + Math.floor(Math.random() * 3); // Between 5 to 7 full spins
@@ -72,7 +75,7 @@ export default function Home() {
   const totalRotation = 360 * extraSpins + randomOffset;
 
   let start: number | null = null;
-  const duration = 3000;
+  const duration = 4100;
 
   const animate = (timestamp: number) => {
     if (!start) start = timestamp;
@@ -180,17 +183,23 @@ return (
         width: '100%',
       }}
     >
+
+      
+
       <canvas
         ref={canvasRef}
         width={300}
         height={300}
+        onClick={spin} // ✅ New: tap to spin
         style={{
           background: 'black',
           borderRadius: '50%',
           maxWidth: '90vw',
           maxHeight: '90vw',
+          cursor: 'pointer', // 🎯 show user it's clickable
         }}
       ></canvas>
+
     </div>
 
     {/* <button
@@ -208,35 +217,64 @@ return (
     >
       Spin 🎯
     </button> */}
-    <div style={{ display: 'flex', gap: '1rem', marginTop: '2rem', flexWrap: 'wrap', justifyContent: 'center' }}>
-        <button
-          onClick={spin}
-          style={{
-            padding: '1rem 2rem',
-            fontSize: '1.2rem',
-            borderRadius: '12px',
-            backgroundColor: 'green',
-            color: 'white',
-            border: 'none',
-          }}
-        >
-          Spin 🎯
-        </button>
+        <div
+  style={{
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+    flexDirection:'column',
+    marginTop: '2rem',
+    gap: '1rem',
+    flexWrap: 'wrap',
 
-        <button
-          onClick={clearWheel}
-          style={{
-            padding: '1rem 2rem',
-            fontSize: '1.2rem',
-            borderRadius: '12px',
-            backgroundColor: '#f44336',
-            color: 'white',
-            border: 'none',
-          }}
-        >
-          Clear 🗑️
-        </button>
-    </div>
+  }}
+>
+  {/* <button
+    onClick={spin}
+    style={{
+      padding: '1rem 2rem',
+      fontSize: '1.2rem',
+      borderRadius: '12px',
+      backgroundColor: 'green',
+      color: 'white',
+      border: 'none',
+      cursor: 'pointer',
+    }}
+  >
+    Spin 🎯
+  </button> */}
+  {tasks.length > 0 && (
+  <p
+    style={{
+      color: 'white',
+      marginTop: '1rem',
+      fontSize: '1rem',
+      opacity: 0.85,
+      transition: 'opacity 0.3s ease',
+    }}
+  >
+    Tap the Wheel to Spin 
+  </p>
+)}
+{tasks.length > 0 && (
+  <button
+    onClick={clearWheel}
+    style={{
+      padding: '0.4rem 0.8rem',
+      fontSize: '0.9rem',
+      borderRadius: '8px',
+      backgroundColor: '#f44336',
+      color: 'white',
+      border: 'none',
+      cursor: 'pointer',
+    }}
+  >
+    Clear 🗑️
+  </button>
+)}
+
+
+</div>
 
     {result && (
       <div
