@@ -94,7 +94,7 @@ export default function Home() {
       const finalRotationDeg = totalRotation % 360;
       const angleUnderArrow = (360 - ((finalRotationDeg + 90) % 360)) % 360;
       const index = Math.floor(angleUnderArrow / anglePerTask) % tasks.length;
-      setResult(`🎯 Go do: ${tasks[index]}`);
+      setResult(`Go do: ${tasks[index]}`);
     }
   };
 
@@ -244,18 +244,34 @@ return (
     Spin 🎯
   </button> */}
   {tasks.length > 0 && (
-  <p
-    style={{
-      color: 'white',
-      marginTop: '1rem',
-      fontSize: '1rem',
-      opacity: 0.85,
-      transition: 'opacity 0.3s ease',
-    }}
-  >
-    Tap the Wheel to Spin 
-  </p>
+    <p
+  style={{
+    color: '#fff',
+    fontWeight: 'bold',
+    fontSize: '1.2rem',
+    marginTop: '1rem',
+    textShadow: '0 0 10px rgba(255,255,255,0.7)',
+    textAlign: 'center',
+    animation: 'pulse 1.5s infinite',
+  }}
+>
+ 🎯 Tap the Wheel to Spin 🎯
+</p>
+
 )}
+{result && (
+      <div
+        style={{
+          // marginTop: '0.8rem',
+          fontSize: '1.5rem',
+          fontWeight: 'bold',
+          color: '#f0f0f0',
+          textAlign: 'center',
+        }}
+      >
+        {result}
+      </div>
+    )}
 {tasks.length > 0 && (
   <button
     onClick={clearWheel}
@@ -276,19 +292,7 @@ return (
 
 </div>
 
-    {result && (
-      <div
-        style={{
-          marginTop: '1.5rem',
-          fontSize: '1.5rem',
-          fontWeight: 'bold',
-          color: '#f0f0f0',
-          textAlign: 'center',
-        }}
-      >
-        {result}
-      </div>
-    )}
+    
   </main>
 );
 
